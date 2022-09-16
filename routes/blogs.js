@@ -188,15 +188,14 @@ router.put(
       });
       return;
     }
-  
-    sampleBlogs.push(checkData)
+
+    sampleBlogs.push(
+      checkData
+    );
 
     res.json({
-      success: true
-    })
-  
-  
-  
+      success: true,
+    });
   }
 );
 
@@ -278,6 +277,32 @@ router.get(
 router.get(
   "/all",
   (req, res) => {
+    const fields =
+      req.query.fields;
+
+    const fieldsArray =
+      fields.split(",");
+
+    const mappedBlogs =
+      sampleBlogs.map(
+        (blog) => {
+          const blogsWithFields =
+            {};
+          fieldsArray.forEach(
+            (field) => {
+              blogsWithFields[
+                field
+              ] =
+                blog[
+                  field
+                ];
+            }
+          );
+
+          return blogsWithFields;
+        }
+      );
+
     res.json({
       success: true,
       blogs: sampleBlogs,
@@ -287,6 +312,13 @@ router.get(
 router.post(
   "/create-one",
   (req, res) => {
+    
+    
+    
+    
+    
+    
+    
     const title =
       req.body.title;
     const text =
